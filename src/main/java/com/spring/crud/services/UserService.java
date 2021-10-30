@@ -2,8 +2,10 @@ package com.spring.crud.services;
 
 import com.spring.crud.models.UserModel;
 import com.spring.crud.repository.UserRepository;
+import org.apache.catalina.mbeans.UserMBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +27,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<UserModel> getUserById(@PathVariable Long id){
-        return userRepository.findById(id);
+    public ResponseEntity<UserModel> getUserById(@PathVariable Long id){
+        Optional<UserModel> user = userRepository.findById(id);
+
+        if (user.isPresent()){
+            return ResponseEntity.ok(user.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     public void deleteUserID(@PathVariable Long id){
