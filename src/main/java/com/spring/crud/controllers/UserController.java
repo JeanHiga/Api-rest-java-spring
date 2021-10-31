@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -34,13 +33,13 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUserID(@PathVariable Long id){
-        userService.deleteUserID(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        return userService.deleteUserID(id);
     }
 
-    @PutMapping
-    public UserModel putUser(@RequestBody UserModel user){
-        return userService.putUser(user);
+    @PutMapping("/{id}")
+    public ResponseEntity<UserModel> putUser(@PathVariable Long id,@RequestBody UserModel user){
+        return userService.putUser(id,user);
     }
 
 }
