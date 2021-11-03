@@ -1,5 +1,6 @@
 package com.spring.crud.controllers;
 
+import com.spring.crud.dto.userDTO;
 import com.spring.crud.models.UserModel;
 import com.spring.crud.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class UserController {
     private UserService userService ;
 
     @GetMapping
-    public List<UserModel> userModelList() {
-        return userService.findAllUsersById();
+    public List<userDTO> userModelList() {
+        return userService.findAllUsers();
     }
 
     @GetMapping("/{id}")

@@ -1,9 +1,9 @@
 package com.spring.crud.services;
 
+import com.spring.crud.dto.userDTO;
 import com.spring.crud.models.UserModel;
 import com.spring.crud.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserService {
@@ -18,8 +20,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserModel> findAllUsersById() {
-        return userRepository.findAll(Sort.by(Sort.Direction.ASC,"id"));
+    public List<userDTO> findAllUsers() {
+        List<UserModel> userlist = userRepository.findAll();
+        return userlist.stream().map(userDTO::new).collect(Collectors.toList());
     }
 
     public UserModel addUser(@RequestBody UserModel user) {
