@@ -19,13 +19,8 @@ public class UserController {
     private UserService userService ;
 
     @GetMapping
-    public List<UserDTO> userModelList() {
-        return userService.findAllUsers();
-    }
-
-    @GetMapping("/page") //Retorna usuários paginados
-    public List<UserDTO> userPage(Pageable page) {
-        return userService.findAllUsersPage(page); //localhost:8080/users/page?page=0&size=2
+    public List<UserDTO> userModelList(Pageable page) {
+        return userService.findAllUsers(page);//localhost:8080/users/?page=0&size=2
     }
 
     @GetMapping("/{id}")

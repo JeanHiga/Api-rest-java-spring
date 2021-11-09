@@ -25,14 +25,9 @@ public class UserService {
     @Autowired
     private UserRepositoryPage userRepositoryPage;
 
-    public List<UserDTO> findAllUsers() {
-        List<UserModel> users = userRepository.findAll();
+    public List<UserDTO> findAllUsers(Pageable page) {
+        Page<UserModel> users = userRepositoryPage.findAll(page);
         return users.stream().map(UserDTO::new).collect(Collectors.toList());
-    }
-
-    public List<UserDTO> findAllUsersPage(Pageable page) {
-        Page<UserModel> userpage = userRepositoryPage.findAll(page);
-        return userpage.stream().map(UserDTO::new).collect(Collectors.toList());
     }
 
     public UserModel addUser(@RequestBody UserModel user) {
