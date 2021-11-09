@@ -4,17 +4,17 @@ import com.spring.crud.models.UserModel;
 
 import java.io.Serializable;
 
-public class userDTO implements Serializable {
+public class UserDTO implements Serializable {
 
     private Long id;
     private String name;
 
-    public userDTO(Long id, String name) {
+    public UserDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public userDTO(UserModel userModel){
+    public UserDTO(UserModel userModel){
         id = userModel.getId();
         name = userModel.getName();
     }
