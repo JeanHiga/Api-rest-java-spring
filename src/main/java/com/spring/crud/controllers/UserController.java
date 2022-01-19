@@ -4,6 +4,7 @@ import com.spring.crud.dto.UserDTO;
 import com.spring.crud.models.UserModel;
 import com.spring.crud.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,8 @@ public class UserController {
     private UserService userService ;
 
     @GetMapping
-    public List<UserDTO> userModelList(Pageable page) {
+
+    public ResponseEntity<Page<UserDTO>> userModelList(Pageable page) {
         return userService.findAllUsers(page);//localhost:8080/users/?page=0&size=2
     }
 

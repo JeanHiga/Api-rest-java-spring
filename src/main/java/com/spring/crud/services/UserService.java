@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -25,9 +23,9 @@ public class UserService {
     @Autowired
     private UserRepositoryPage userRepositoryPage;
 
-    public List<UserDTO> findAllUsers(Pageable page) {
-        Page<UserModel> users = userRepositoryPage.findAll(page);
-        return users.stream().map(UserDTO::new).collect(Collectors.toList());
+    public ResponseEntity<Page<UserDTO>> findAllUsers(Pageable page) {
+        Page<UserDTO> users = userRepository.findAll(page).map(UserDTO::new);
+        return ResponseEntity.ok(users);
     }
 
     public UserModel addUser(@RequestBody UserModel user) {
