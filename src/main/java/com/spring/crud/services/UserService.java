@@ -5,6 +5,7 @@ import com.spring.crud.models.UserModel;
 import com.spring.crud.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -39,11 +40,13 @@ public class UserService {
     }
 
     public ResponseEntity<Void> deleteUserID(@PathVariable Long id) {
-        if (!userRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        userRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+
+        try {
+            userRepository.deleteById(id);
+                return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException e) {
+                return ResponseEntity.notFound().build();
+            }
     }
 
     public ResponseEntity<UserModel> putUser(@PathVariable Long id, @RequestBody UserModel user) {

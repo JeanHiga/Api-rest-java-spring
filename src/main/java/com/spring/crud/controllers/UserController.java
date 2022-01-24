@@ -4,7 +4,6 @@ import com.spring.crud.dto.UserDTO;
 import com.spring.crud.models.UserModel;
 import com.spring.crud.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserModel> getUserByID(@PathVariable Long id){
+    public ResponseEntity<UserModel> getUserByID(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
@@ -37,7 +36,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         return userService.deleteUserID(id);
     }
 
@@ -45,6 +44,5 @@ public class UserController {
     public ResponseEntity<UserModel> putUser(@Valid @PathVariable Long id,@RequestBody UserModel user){
         return userService.putUser(id,user);
     }
-
 }
 

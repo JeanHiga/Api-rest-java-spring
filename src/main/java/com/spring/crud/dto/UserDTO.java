@@ -14,7 +14,7 @@ public class UserDTO implements Serializable {
         this.name = name;
     }
 
-    public UserDTO(UserModel userModel){
+    public UserDTO(UserModel userModel) {
         name = userModel.getName();
     }
 
